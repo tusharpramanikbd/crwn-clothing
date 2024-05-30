@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import InputField from "./InputField";
 
 const defaultFormFields = {
   displayName: "",
@@ -11,7 +12,7 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const handleChnage = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });
@@ -21,38 +22,38 @@ const SignUp = () => {
     <div>
       <h1>Sign up with your email and password</h1>
       <form onSubmit={() => {}}>
-        <label>Display Name</label>
-        <input
+        <InputField
+          labelText="Display Name"
           type="text"
-          required
-          onChange={handleChnage}
+          isRequired={true}
+          handleChange={handleChange}
           name="displayName"
           value={displayName}
         />
 
-        <label>Email</label>
-        <input
+        <InputField
+          labelText="Email"
           type="email"
-          required
-          onChange={handleChnage}
+          isRequired={true}
+          handleChange={handleChange}
           name="email"
           value={email}
         />
 
-        <label>Password</label>
-        <input
+        <InputField
+          labelText="Password"
           type="password"
-          required
-          onChange={handleChnage}
+          isRequired={true}
+          handleChange={handleChange}
           name="password"
           value={password}
         />
 
-        <label>Confirm Password</label>
-        <input
+        <InputField
+          labelText="Confirm Password"
           type="password"
-          required
-          onChange={handleChnage}
+          isRequired={true}
+          handleChange={handleChange}
           name="confirmPassword"
           value={confirmPassword}
         />
