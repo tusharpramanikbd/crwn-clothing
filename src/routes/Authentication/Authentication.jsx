@@ -1,11 +1,11 @@
 import React from "react";
 import SignUp from "../../components/SignUp/SignUp.jsx";
 import SignIn from "../../components/SignIn/SignIn.jsx";
+import "./Authentication.styles.scss";
 
 const Authentication = () => {
   return (
-    <div>
-      <h1>Sign In Page</h1>
+    <div className="authentication-container">
       <SignIn />
       <SignUp />
     </div>
