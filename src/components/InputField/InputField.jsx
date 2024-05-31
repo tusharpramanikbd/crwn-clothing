@@ -1,4 +1,5 @@
 import React from "react";
+import "./InputField.styles.scss";
 
 const InputField = ({
   handleChange,
@@ -9,16 +10,21 @@ const InputField = ({
   labelText,
 }) => {
   return (
-    <>
-      <label>{labelText}</label>
+    <div className="group">
       <input
+        className="form-input"
         type={type}
         required={isRequired}
         onChange={handleChange}
         name={name}
         value={value}
       />
-    </>
+      {labelText && (
+        <label className={`${value.length ? "shrink" : ""} form-input-label`}>
+          {labelText}
+        </label>
+      )}
+    </div>
   );
 };
 
