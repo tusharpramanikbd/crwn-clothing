@@ -5,11 +5,12 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "",
+  apiKey: "AIzaSyA1r1h_GDBUA8_hHK1YnROIkeEh7yriUIU",
   authDomain: "crwn-clothing-db-cbe0e.firebaseapp.com",
   projectId: "crwn-clothing-db-cbe0e",
   storageBucket: "crwn-clothing-db-cbe0e.appspot.com",
@@ -72,3 +73,5 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = async () => await signOut(auth);
