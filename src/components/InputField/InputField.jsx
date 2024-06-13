@@ -1,5 +1,5 @@
 import React from "react";
-import "./InputField.styles.scss";
+import { FormInputLabel, Input, Group } from "./InputField.styles";
 
 const InputField = ({
   handleChange,
@@ -10,9 +10,8 @@ const InputField = ({
   labelText,
 }) => {
   return (
-    <div className="group">
-      <input
-        className="form-input"
+    <Group>
+      <Input
         type={type}
         required={isRequired}
         onChange={handleChange}
@@ -20,11 +19,9 @@ const InputField = ({
         value={value}
       />
       {labelText && (
-        <label className={`${value.length ? "shrink" : ""} form-input-label`}>
-          {labelText}
-        </label>
+        <FormInputLabel shrink={value.length}>{labelText}</FormInputLabel>
       )}
-    </div>
+    </Group>
   );
 };
 
