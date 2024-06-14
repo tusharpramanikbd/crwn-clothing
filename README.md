@@ -1,3 +1,11 @@
+# App Name: Crwn Clothing
+
+# Used technologies: React, React Router Dom, Firebase, Styled Components, SASS
+
+# Public URL = https://crwn-clothing-tushar.netlify.app/
+
+# About: This is a simple e-commerce app created while learning a react course
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
