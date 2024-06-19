@@ -14,7 +14,7 @@ const CartDropdown = () => {
   const navigate = useNavigate();
 
   const handleGoToCheckout = () => {
-    setIsCartOpen((value) => !value);
+    setIsCartOpen(false);
     navigate("/checkout");
   };
 
@@ -22,7 +22,7 @@ const CartDropdown = () => {
     <CartDropdownConatiner>
       <CartItems>
         {cartItems.length ? (
-          cartItems.map((item) => <CartItem cartItem={item} />)
+          cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
         ) : (
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}

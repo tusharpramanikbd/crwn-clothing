@@ -7,9 +7,11 @@ import {
 import { CartContext } from "../../contexts/cart.context";
 
 const CartIcon = () => {
-  const { setIsCartOpen, cartItemCount } = useContext(CartContext);
+  const { setIsCartOpen, cartItemCount, isCartOpen } = useContext(CartContext);
 
-  const handleToggleCart = () => setIsCartOpen((value) => !value);
+  const handleToggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   return (
     <CartIconContainer onClick={handleToggleCart}>
