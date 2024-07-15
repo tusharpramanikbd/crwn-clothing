@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { signInWithGooglePopup } from "../utils/firebase/firebaseUtil";
+import {
+  signInUserWithEmailAndPassword,
+  signInWithGooglePopup,
+} from "../utils/firebase/firebaseUtil";
 
 const defaultFormFields = {
   email: "",
@@ -8,13 +10,12 @@ const defaultFormFields = {
 };
 
 export const useSignIn = () => {
-  // const dispatch = useDispatch();
-  // const [formFields, setFormFields] = useState(defaultFormFields);
-  // const { email, password } = formFields;
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { email, password } = formFields;
 
-  // const resetFormFields = () => {
-  //   setFormFields(defaultFormFields);
-  // };
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
 
   const signInWithGoogle = async () => {
     try {
@@ -24,31 +25,35 @@ export const useSignIn = () => {
     }
   };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  //   try {
-  //     dispatch(emailSignInStart(email, password));
+    try {
+      await signInUserWithEmailAndPassword(email, password);
 
-  //     resetFormFields();
-  //   } catch (error) {
-  //     switch (error.code) {
-  //       case "auth/invalid-credential":
-  //         alert("Incorrect password or email");
-  //         break;
-  //       default:
-  //         console.log(error);
-  //     }
-  //   }
-  // };
+      resetFormFields();
+    } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-credential":
+          alert("Incorrect password or email");
+          break;
+        default:
+          console.log(error);
+      }
+    }
+  };
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  //   setFormFields({ ...formFields, [name]: value });
-  // };
+    setFormFields({ ...formFields, [name]: value });
+  };
 
   return {
     signInWithGoogle,
+    handleSubmit,
+    handleChange,
+    email,
+    password,
   };
 };
