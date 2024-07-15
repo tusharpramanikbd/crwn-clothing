@@ -7,6 +7,7 @@ import {
   googleSignInStart,
   emailSignInStart,
 } from "../../store/user/userAction";
+import { useSignIn } from "../../hooks/useSIgnIn";
 
 const defaultFormFields = {
   email: "",
@@ -14,6 +15,7 @@ const defaultFormFields = {
 };
 
 const SignIn = () => {
+  const { signInWithGoogle } = useSignIn();
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -22,9 +24,9 @@ const SignIn = () => {
     setFormFields(defaultFormFields);
   };
 
-  const signInWithGoogle = async () => {
-    dispatch(googleSignInStart());
-  };
+  // const signInWithGoogle = async () => {
+  //   dispatch(googleSignInStart());
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();

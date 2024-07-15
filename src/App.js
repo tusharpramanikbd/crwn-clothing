@@ -4,29 +4,10 @@ import Navigation from "./routes/Navigation/Navigation";
 import Shop from "./routes/Shop/Shop";
 import Authentication from "./routes/Authentication/Authentication";
 import Checkout from "./routes/Checkout/Checkout";
-import { useEffect } from "react";
-// import { checkUserSession } from "./store/user/userAction";
-import { useDispatch } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth/cordova";
-import {
-  createUserDocumentFromAuth,
-  onAuthStateChangedListener,
-} from "./utils/firebase/firebaseUtil";
-import { setCurrentUser } from "./store/user/userReducer";
+import { useCheckUserSession } from "./hooks/useCheckUserSession";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      console.log(user);
-      dispatch(setCurrentUser());
-    });
-    return unsubscribe;
-  }, []);
+  useCheckUserSession();
 
   return (
     <Routes>
