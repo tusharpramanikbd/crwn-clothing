@@ -1,6 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { CategoryItem } from "../categories/categoriesSlice";
 
-const addCartItem = (cartItems, newProduct) => {
+type CartItem = CategoryItem & {
+  quantity: number;
+};
+
+export type CartState = {
+  isCartOpen: boolean;
+  cartItems: CartItem[];
+};
+
+const addCartItem = (
+  cartItems: CartItem[],
+  newProduct: CategoryItem
+): CartItem[] => {
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === newProduct.id
   );
@@ -16,12 +29,15 @@ const addCartItem = (cartItems, newProduct) => {
   return [...cartItems, { ...newProduct, quantity: 1 }];
 };
 
-const removeCartItem = (cartItems, cartItemToRemove) => {
+const removeCartItem = (
+  cartItems: CartItem[],
+  cartItemToRemove: CartItem
+): CartItem[] => {
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === cartItemToRemove.id
   );
 
-  if (existingCartItem.quantity === 1) {
+  if (existingCartItem?.quantity && existingCartItem.quantity === 1) {
     return clearCartItem(cartItems, cartItemToRemove);
   }
 
@@ -32,10 +48,13 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   );
 };
 
-const clearCartItem = (cartItems, cartItemToClear) =>
+const clearCartItem = (
+  cartItems: CartItem[],
+  cartItemToClear: CartItem
+): CartItem[] =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 
-export const CART_INITIAL_STATE = {
+export const CART_INITIAL_STATE: CartState = {
   isCartOpen: false,
   cartItems: [],
 };
