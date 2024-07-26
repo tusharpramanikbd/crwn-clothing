@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  User,
+  NextOrObserver,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -43,10 +45,14 @@ export const signInWithGooglePopup = () =>
 
 export const db = getFirestore();
 
-export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd
-) => {
+export type ObjectsToAdd = {
+  title: string;
+};
+
+export const addCollectionAndDocuments = async <T extends ObjectsToAdd>(
+  collectionKey: string,
+  objectsToAdd: T[]
+): Promise<void> => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
 
@@ -67,9 +73,13 @@ export const getCategoriesAndDocuments = async () => {
   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
+export type AdditionalInformation = {
+  displayName?: string;
+};
+
 export const createUserDocumentFromAuth = async (
-  userAuth,
-  aditionalInformation
+  userAuth: User,
+  aditionalInformation = {} as AdditionalInformation
 ) => {
   if (!userAuth) return;
 
@@ -89,20 +99,26 @@ export const createUserDocumentFromAuth = async (
         ...aditionalInformation,
       });
     } catch (error) {
-      console.log("Error creating the user", error.message);
+      console.log("Error creating the user", error);
     }
   }
 
   return userSnapshot;
 };
 
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInUserWithEmailAndPassword = async (email, password) => {
+export const signInUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
@@ -116,7 +132,7 @@ export const signOutUser = async () => {
   }
 };
 
-export const onAuthStateChangedListener = (callBack) =>
+export const onAuthStateChangedListener = (callBack: NextOrObserver<User>) =>
   onAuthStateChanged(auth, callBack);
 
 export const getCurrentUser = () => {
