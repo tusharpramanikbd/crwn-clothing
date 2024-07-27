@@ -9,6 +9,7 @@ import {
   onAuthStateChanged,
   User,
   NextOrObserver,
+  UserCredential,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -109,7 +110,7 @@ export const createUserDocumentFromAuth = async (
 export const createAuthUserWithEmailAndPassword = async (
   email: string,
   password: string
-) => {
+): Promise<UserCredential | undefined> => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);

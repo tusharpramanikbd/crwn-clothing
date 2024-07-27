@@ -1,7 +1,16 @@
-import React from "react";
+import { ChangeEvent, FC } from "react";
 import { FormInputLabel, Input, Group } from "./InputField.styles";
 
-const InputField = ({
+type InputFieldProps = {
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  type: string;
+  name: string;
+  value: string;
+  isRequired: boolean;
+  labelText: string;
+};
+
+const InputField: FC<InputFieldProps> = ({
   handleChange,
   type,
   name,
@@ -19,7 +28,7 @@ const InputField = ({
         value={value}
       />
       {labelText && (
-        <FormInputLabel shrink={value.length}>{labelText}</FormInputLabel>
+        <FormInputLabel shrink={!!value.length}>{labelText}</FormInputLabel>
       )}
     </Group>
   );

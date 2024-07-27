@@ -1,6 +1,5 @@
-import React from "react";
-import SignUp from "../../components/SignUp/SignUp.jsx";
-import SignIn from "../../components/SignIn/SignIn.jsx";
+import SignUp from "../../components/SignUp/SignUp";
+import SignIn from "../../components/SignIn/SignIn";
 import "./Authentication.styles.scss";
 
 const Authentication = () => {

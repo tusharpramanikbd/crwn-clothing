@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../utils/firebase/firebaseUtil";
+import { AuthError, AuthErrorCodes, UserCredential } from "firebase/auth";
 
 const defaultFormFields = {
   displayName: "",
@@ -19,7 +20,7 @@ export const useSIgnUp = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -28,17 +29,18 @@ export const useSIgnUp = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
+      const { user } = (await createAuthUserWithEmailAndPassword(
         email,
         password
-      );
+      )) as UserCredential;
+
       await createUserDocumentFromAuth(user, { displayName });
 
       resetFormFields();
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
+      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert("Cannot create user, email already in use");
-      } else if (error.code === "auth/weak-password") {
+      } else if ((error as AuthError).code === AuthErrorCodes.WEAK_PASSWORD) {
         alert("Password should be at least 6 characters");
       } else {
         console.log("User creation error: ", error);
@@ -46,7 +48,7 @@ export const useSIgnUp = () => {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });

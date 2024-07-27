@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import {
   signInUserWithEmailAndPassword,
   signInWithGooglePopup,
 } from "../utils/firebase/firebaseUtil";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 const defaultFormFields = {
   email: "",
@@ -25,7 +26,7 @@ export const useSignIn = () => {
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -33,8 +34,8 @@ export const useSignIn = () => {
 
       resetFormFields();
     } catch (error) {
-      switch (error.code) {
-        case "auth/invalid-credential":
+      switch ((error as AuthError).code) {
+        case AuthErrorCodes.INVALID_LOGIN_CREDENTIALS:
           alert("Incorrect password or email");
           break;
         default:
@@ -43,7 +44,7 @@ export const useSignIn = () => {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setFormFields({ ...formFields, [name]: value });

@@ -1,4 +1,3 @@
-import React from "react";
 import InputField from "../InputField/InputField";
 import "./SignIn.styles.scss";
 import Button, { BUTTON_TYPE_CLASSES } from "../Button/Button";
