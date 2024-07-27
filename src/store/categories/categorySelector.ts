@@ -1,11 +1,13 @@
 import { createSelector } from "reselect";
 import { CategoriesState, CategoryItem } from "./categoriesSlice";
+import { RootState } from "../rootReducer";
 
 type CategoryMap = {
   [key: string]: CategoryItem[];
 };
 
-const selectCategoryReducer = (state: any): CategoriesState => state.categories;
+const selectCategoryReducer = (state: RootState): CategoriesState =>
+  state.categories;
 
 // Memoised Selector
 export const selectCategories = createSelector(
