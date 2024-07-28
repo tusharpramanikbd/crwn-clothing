@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   CartDropdownConatiner,
   EmptyMessage,
@@ -16,10 +16,10 @@ const CartDropdown = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleGoToCheckout = () => {
+  const handleGoToCheckout = useCallback(() => {
     dispatch(setIsCartOpen(false));
     navigate("/checkout");
-  };
+  }, []);
 
   return (
     <CartDropdownConatiner>
