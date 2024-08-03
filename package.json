@@ -32,12 +32,13 @@
     "stripe": "^16.2.0",
     "styled-components": "^6.1.11",
     "typescript": "^5.5.4",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --maxWorkers=25% --watchAll=false --logHeapUsage --verbose=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

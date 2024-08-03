@@ -3,6 +3,7 @@ import { rootReducer, RootState } from "../../store/rootReducer";
 import { PropsWithChildren, ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
 type AppStore = ReturnType<typeof setupStore>;
 
@@ -42,7 +43,11 @@ export const renderWithProviders = (
   } = extendedRenderOptions;
 
   const Wrapper = ({ children }: PropsWithChildren) => {
-    return <Provider store={store}>{children}</Provider>;
+    return (
+      <Provider store={store}>
+        <BrowserRouter>{children}</BrowserRouter>
+      </Provider>
+    );
   };
 
   return {
